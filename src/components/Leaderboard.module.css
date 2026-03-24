@@ -1,0 +1,135 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cfa-page);
+}
+
+.topBar {
+  flex-shrink: 0;
+  padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1rem, 3vw, 2rem);
+  background: var(--cfa-red);
+  color: #fff;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.title {
+  margin: 0;
+  font-family: "Apercu", sans-serif;
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.updated {
+  margin: 0.4rem 0 0;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-weight: 400;
+  opacity: 0.92;
+}
+
+.yourStore {
+  margin: 0.25rem 0 0;
+  font-size: clamp(0.75rem, 1.6vw, 0.95rem);
+  font-weight: 700;
+  opacity: 0.96;
+}
+
+.main {
+  flex: 1;
+  padding: clamp(1rem, 3vw, 1.75rem);
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.error {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  text-align: center;
+  color: var(--cfa-text);
+  background: #fff8f0;
+  border: 1px solid #e8d4c4;
+  border-radius: var(--radius);
+}
+
+.loading {
+  margin: 2rem 0;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  text-align: center;
+  color: var(--cfa-text-muted);
+}
+
+.tableScroll {
+  overflow-x: auto;
+  background: var(--cfa-surface);
+  border: 1px solid var(--cfa-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+}
+
+.table th,
+.table td {
+  padding: clamp(0.5rem, 1.5vw, 0.85rem) clamp(0.65rem, 2vw, 1rem);
+  text-align: left;
+  border-bottom: 1px solid var(--cfa-border);
+}
+
+.table th {
+  font-size: clamp(0.65rem, 1.4vw, 0.75rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #fff;
+  background: #003b5c;
+  white-space: nowrap;
+}
+
+.table tbody tr {
+  background: var(--cfa-surface);
+}
+
+.table tbody tr:hover {
+  background: var(--cfa-surface-subtle);
+}
+
+.leaderRow {
+  background: var(--cfa-red-muted) !important;
+}
+
+/* With border-collapse: collapse, <tr> backgrounds are unreliable; color each cell. */
+.highlightRow td {
+  background: #003b5c !important;
+  color: #fff !important;
+}
+
+.highlightRow .rankCol,
+.highlightRow .ptsCol {
+  color: #fff !important;
+}
+
+.rankCol {
+  width: 2.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--cfa-text-muted);
+}
+
+.locCol {
+  font-weight: 600;
+  max-width: 28rem;
+}
+
+.ptsCol {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--cfa-red);
+}
