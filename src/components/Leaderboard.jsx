@@ -3,7 +3,9 @@ import styles from "./Leaderboard.module.css";
 
 const DATA_URL = "https://oc-leaderboard-data.s3.us-east-2.amazonaws.com/leaderboard_data.json";
 const REFRESH_MS = 5 * 60 * 1000;
-const DISPLAY_ENTRIES = 18;
+const DEFAULT_DISPLAY_ENTRIES = 18;
+const MIN_DISPLAY_ENTRIES = 1;
+const MAX_DISPLAY_ENTRIES = 100;
 
 /** Reads store id from `?store=30023` or `?id=30023` (must match digits in location parentheses). */
 function readHighlightStoreIdFromSearch() {
@@ -13,6 +15,17 @@ function readHighlightStoreIdFromSearch() {
   if (raw == null) return null;
   const trimmed = String(raw).trim();
   return trimmed === "" ? null : trimmed;
+}
+
+/** Reads display row count from `?entries=20` with safe bounds. */
+function readDisplayEntriesFromSearch() {
+  if (typeof window === "undefined") return DEFAULT_DISPLAY_ENTRIES;
+  const q = new URLSearchParams(window.location.search);
+  const raw = q.get("entries");
+  if (raw == null) return DEFAULT_DISPLAY_ENTRIES;
+  const parsed = Number.parseInt(String(raw).trim(), 10);
+  if (!Number.isFinite(parsed)) return DEFAULT_DISPLAY_ENTRIES;
+  return Math.min(MAX_DISPLAY_ENTRIES, Math.max(MIN_DISPLAY_ENTRIES, parsed));
 }
 
 function num(v) {
@@ -68,9 +81,13 @@ export default function Leaderboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [highlightStoreId, setHighlightStoreId] = useState(readHighlightStoreIdFromSearch);
+  const [displayEntries, setDisplayEntries] = useState(readDisplayEntriesFromSearch);
 
   useEffect(() => {
-    const sync = () => setHighlightStoreId(readHighlightStoreIdFromSearch());
+    const sync = () => {
+      setHighlightStoreId(readHighlightStoreIdFromSearch());
+      setDisplayEntries(readDisplayEntriesFromSearch());
+    };
     sync();
     window.addEventListener("popstate", sync);
     return () => window.removeEventListener("popstate", sync);
@@ -130,10 +147,10 @@ export default function Leaderboard() {
   }, [standings, highlightStoreId]);
   const highlightPosition = highlightIndex >= 0 ? highlightIndex + 1 : null;
   const displayedStandings = useMemo(
-    () => standings.slice(0, DISPLAY_ENTRIES),
-    [standings]
+    () => standings.slice(0, displayEntries),
+    [standings, displayEntries]
   );
-  const placeholderRows = Math.max(0, DISPLAY_ENTRIES - displayedStandings.length);
+  const placeholderRows = Math.max(0, displayEntries - displayedStandings.length);
 
   return (
     <div className={styles.shell}>
