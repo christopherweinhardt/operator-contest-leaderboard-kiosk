@@ -179,7 +179,7 @@ export default function Leaderboard() {
                   <th scope="col">Location</th>
                   <th scope="col">Pts</th>
                   <th scope="col">Avg. Cookie</th>
-                  <th scope="col">Avg. Strawberry Hibiscus</th>
+                  <th scope="col">Avg. Peach</th>
                 </tr>
               </thead>
               <tbody>
@@ -197,7 +197,7 @@ export default function Leaderboard() {
                     <td className={styles.locCol}>{row.location}</td>
                     <td className={styles.ptsCol}>{formatScore(num(row.avgTotalPoints))}</td>
                     <td>{formatScore(num(row.avgCookie))}</td>
-                    <td>{formatScore(num(row.avgStrawberryHibiscusPlatform))}</td>
+                    <td>{formatScore(num(row.avgPeachMilkshake))}</td>
                   </tr>
                 ))}
                 {Array.from({ length: placeholderRows }).map((_, i) => (
